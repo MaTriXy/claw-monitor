@@ -35,12 +35,15 @@ A terminal dashboard for monitoring [OpenClaw](https://github.com/openclaw/openc
 - **GPU monitoring** — NVIDIA GPU usage via `nvidia-smi` (auto-detected)
 - **Docker containers** — Shows running container names and status
 - **Kubernetes pods** — Shows k8s/k3s pods (auto-detected, system namespaces filtered)
-- **Two-column layout** — Resource gauges on the left, containers/pods on the right
+- **Systemd services** — Monitors key system services (auto-detected)
+- **Two-column layout** — Resource gauges on the left, containers/pods/services on the right
 - **Color thresholds** — Green (healthy), yellow (≥70%), red (≥90%) — configurable via env vars
 
 ### Responsive Layout
 - **Auto-sizing** — Dashboard width adapts to your terminal (60–120 columns)
 - **Resize handling** — Responds to terminal resize events in real-time
+- **Internal scrolling** — PgUp/PgDn/Home/End scroll when content exceeds terminal height
+- **Alternate screen** — Uses alternate screen buffer so your scrollback is preserved on exit
 
 <img width="709" height="292" alt="No sub agents" src="images/no-sub-agents.png" />
 
@@ -82,6 +85,8 @@ claw-monitor
 | `a` | Toggle between running-only and all sessions |
 | `↑` `↓` | Select agent (when agents are running) |
 | `Enter` | Expand/collapse agent details |
+| `PgUp` / `PgDn` | Scroll dashboard when content exceeds terminal height |
+| `Home` / `End` | Jump to top / bottom of dashboard |
 | `Cmd+-/+` or `Ctrl+-/+` | Zoom terminal font size |
 
 ## Coding Agent Attach Commands
@@ -172,6 +177,7 @@ Both parse cron expressions into human-readable schedules, calculate relative ne
 - **GPU** — Parsed from `nvidia-smi --query-gpu` (when available)
 - **Docker** — Parsed from `docker ps --format` (when available)
 - **Kubernetes** — Parsed from `kubectl get pods` (when available); auto-detects k3s via `/etc/rancher/k3s/k3s.yaml`
+- **Systemd** — Parsed from `systemctl list-units` (when available); filters system-internal services
 
 ## Built With
 

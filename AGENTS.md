@@ -56,7 +56,7 @@ Uses raw ANSI escape codes with alternate screen buffer. `index.ts` runs a `setI
 | Coding agents | `detectAgents()` via `ps aux` | 5s |
 | Cron jobs | `loadCronJobs()` via `openclaw cron list --json` | 15s |
 | System cron | `loadSystemCron()` via `crontab -l` | 60s |
-| System stats | `collectStats()` via `top`, `os.*`, `df`, `nvidia-smi`, `docker ps` | 10s |
+| System stats | `collectStats()` via `top`, `os.*`, `df`, `nvidia-smi`, `docker ps`, `systemctl`, `kubectl` | 10s |
 
 All intervals are configurable via environment variables (see `src/utils/config.ts`).
 
@@ -72,7 +72,7 @@ All intervals are configurable via environment variables (see `src/utils/config.
 6. Footer — agent count summary
 7. Help hint — keyboard shortcuts (contextual: ↑↓/Enter only shown when agents exist)
 
-Width is responsive (60–120 columns) via terminal resize events in `index.ts`.
+Width is responsive (60–120 columns) via terminal resize events in `index.ts`. When content exceeds terminal height, PgUp/PgDn/Home/End provide internal scrolling. The alternate screen buffer preserves the user's original scrollback on exit.
 
 ## Key Conventions
 
